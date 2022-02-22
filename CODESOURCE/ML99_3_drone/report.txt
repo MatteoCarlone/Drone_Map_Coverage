@@ -1,0 +1,35 @@
+###########################################################
+#  __  __ _     ___   ___    _____                        #
+# |  \/  | |   / _ \ / _ \  |  __ \                       #
+# | \  / | |  | (_) | (_) | | |  | |_ __ ___  _ __   ___  #
+# | |\/| | |   \__, |\__, | | |  | | '__/ _ \| '_ \ / _ \ #
+# | |  | | |____ / /   / /  | |__| | | | (_) | | | |  __/ #
+# |_|  |_|______/_/   /_/   |_____/|_|  \___/|_| |_|\___| #
+#                                                         #
+###########################################################                                                        
+
+ Welcome to ML99 drone! The drone is an autonomous 4 prop-
+ ellers, its aim is to explore a 40x80 field covering all 
+ the spots.
+ The coverage algorith that we elaborated is not complex
+ but effective. The idea behind the algorithm is to cover 
+ all the spots in the field, to do this we decided to rea-
+ son over the grid[40][80] and make the robot aiming to a
+ random not visited spot. Every time that the robot passe-
+ s through a non visited spot it leaves a '1'. The spots 
+ not covered yet have a '0' on them.
+ After a while the robot can easily run out of battery an-
+ d the program recharges automatically the robot by makin-
+ g it landing on the ground.
+ 
+ We can manage the velocity of the robot with different c-
+ ommands:
+ 	'i': we double the velocity.
+ 	'k': we get half of the velocity.
+ 	
+ Another command that we decide to implement is the exit 
+ button:
+ 	'e': we stop the program [EXIT].
+ 
+ Enjoy the drone and have fun!
+ 

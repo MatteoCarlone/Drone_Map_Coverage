@@ -1,0 +1,65 @@
+############################ ASSIGNMENT INFOS #############################
+
+HOW TO RUN the project: 
+
+To run the project you should first launch the INSTALL shell script by running the following command on the command window:
+
+$ source ./install.sh <path_name>
+$ ./run.sh
+
+NOTE:
+If you ever close the shell you are launching the simulation from, remember to run the first command again before running the program with the following one. 
+
+
+SUMMARY: 
+
+This project is the simulation of a Drone robot capable of flying together with other drones inside of a 80(x) by 40(y) units field and avoiding collisions into the border walls and between each other.
+Aims of the assignment: 
+-1- Establishing a solid client/servers connection using sockets with a master process provided by another work group.
+-2- Making sure that the drone will not collide with the walls of the field.
+-3- Making sure that the drone will not hit other drones flying in the field.
+-4- Implementing a coverage algorithm that will make sure that the robot will cover the whole map in the shortest amount of time.
+
+
+GUI INTERFACE: 
+
+-1- The Program will first show the map where the drone will travel during execution.
+	- The green spots of the map represent the unvisited positions.
+	- The red spots of the map represent the already visited positions.
+
+-2- Underneath the map the user will be able to read some informations about:
+	- The current position of the robot,
+	- The current buttery level,
+	- The current speed at which the robot is flying. 
+
+-3- As a final section the user will be able to read a legend regarding the buttons to press for changing current speed
+	
+	-[1] to switch to the SLOW speed mod.
+	-[2] to switch to the MID speed mod.
+	-[3] to switch to the HIGH speed mod.
+	-[4] to switch to the INSANE speed mod.
+	-[5] to switch to the ULTRA INSANE speed mod.
+
+-4- Button [q] to close the socket and the program itself  
+
+We took care of all the graphical components through the use of the ncurses.h libraries.
+
+
+GENERAL description of the process's behavior:
+
+Once connected to the server via socket, our client-process will star asking the server for permission to move towards a certain direction. If the response form the Master-service will be positive, our drone will actually move towards that direction. If the response is negative, the robot will not move until the response will get to a positive value. 
+
+The information sent by the client to the master is structured as a struct containing informations about the future direction that the drone wants to reach, a status value to distinguish a charging state to the flying state, and a t_time variable.
+ 
+The response form the server will be either "1" if the next spot is free to be visited or "0" if it is not. 
+
+The drone moves inside the field following a coverage algorithm that we developed. The robot will fly towards a certain direction for a certain amount of steps. The number of steps towards a fixed direction may randomly range between 6 and 20. Since the main aim is to cover the most amount of terrain the robot will never chose the opposite direction of the one just taken. This condition prevents the drone form discovering the field areas just visited. 
+If the next position of the drone is already visited, the drone may choose to not actually go towards that direction but it will just fly towards either of the two close ones if one of them is not visited.
+These precautions helps the robot covering the most amount of space in the shortest amount of time. 
+
+The robot will also avoid hitting the walls thanks to the following feature of our algorithm. If the robot gets too close to the border of the field the direction that would cause the robot to get out of the field gets multiplied by -1. This change will make the robot change direction and get back towards other middle areas of the field surface.
+
+The rate at which the robot will comunicate with the master process is selected by the user through the change of speed. If the speed is higher it means that the request will be sent at a much higher rate than a normal request rate set by a slower speed. 
+
+However the battery drain will be proportional to the speed at which the robot travels. Instead, the charging speed is fixed to be always the same. The charging state is a condition at which the drone says still for a fixed amount of time during which the robot will charge its battery up to the maximum amount.
+

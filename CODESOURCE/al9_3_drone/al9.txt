@@ -1,0 +1,24 @@
+########################################## AL9 DRONE INFO #################################################
+
+General aspects: 
+
+The task for this assignment was to develop a drone simulator.
+The drone flies in a 40 x 80 environment that we have created using a matrix. The drone moves inside 
+this environment changing casually its direction according to the algorithm we have developed.
+During the flight the drone will consume its battery, once the battery is over the drone will land 
+in order to recharge it; then it will be able to fly again.
+Of course our drone is not the only one to fly in the environment, so the drone has to communicate 
+to the master process its position, throught a socket, in order to let drone knows if the next 
+position in which it wants to go is avaible or it is already taken by another drone.  
+
+We have developed a simple graphic interface using the ncurses library:
+The 40 x 80 matrix in which the drone moves is represented using "#" for each box; once a position becomes
+visited by the drone the "#" in the explored position is substituted by the "@". 
+
+Our coverage algorithm is quite simple and here explained:
+Before moving to a new position we check if it has been already visited and in this case the drone 
+will change its moving direction; obviously this behavior does not exclude to explore again an 
+already-visited position since it may happen that once the direction has been changed also the new 
+position has been already explored. 
+In order to avoid only horizontal or vertical movements we have decided to implement a randomic function
+that acts on the other coordinate to eventually change it.

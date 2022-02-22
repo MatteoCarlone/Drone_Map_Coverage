@@ -1,0 +1,8 @@
+## MASTER PROCESS ##
+
+The master process is the main process of the entire system. It shows in real-time the position of all the connected drones using the ncurses library for
+generating the GUI.
+The master also has a built-in collision avoidance feature: every time a drone wants to move, he sends to the master a request with the new position.
+The master then checks every position of the other drones, and if the new position falls into a 3x3 area that surrounds another drone, this process
+blocks the movement.
+Every time a new request is managed, the process updates tue GUI, showing also the already explored area marked with dots.
